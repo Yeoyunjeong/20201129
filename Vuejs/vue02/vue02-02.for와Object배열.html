@@ -43,3 +43,59 @@
 </body>
 
 </html>
+
+<script>
+    var objarray = [
+        { text: 'One', value: 'A' },
+        { text: 'Two', value: 'B' },
+        { text: 'Three', value: 'C' }
+    ];
+
+    // objarray에 객체 추가
+    objarray.push({
+        text : 'Four',
+        value : 'D'
+    });
+    // objarray 에서 값을 변경
+    objarray[1] = {text : '2', value: 'B'}; //새롭게 변경 - vue에서는 새롭게 만든 다음에 바꿔야 함..
+
+    objarray[1].text = '2'; //기존에서 변경
+    objarray[1].value = '2'; //기존에서 변경
+
+
+    //objarray에서 삭제`
+    objarray.pop(); //마지막놈만 삭제 가능.
+    objarray.splice( objarray.length-2 , 1);
+
+    console.log(objarray);
+
+    //breakpoint이 적용이 안될 때...
+    //debugger
+
+    // objarray 에서 text가 One인 객체들을 찾으시오 search
+    // 1) 배열을 이용한 방식
+    var arrOne = [];
+    for(var i=0;i<objarray.length;i++){
+        var obj = objarray[i];
+        if(obj.text === 'One'){
+            arrOne[arrOne.length] = obj;
+        }
+    }
+
+    console.log(arrOne);
+
+    // 2) 함수를 이용한 방식
+    var arrOne2 = objarray.filter(function(item, idex){
+        if(item.text === 'One'){
+            return true;
+        }else{
+            return false;
+        }
+    }).map(function(item, index){
+        return item['price'] = 0;
+    });
+    //뒤에 item : 0 이 모두 추가 됨..
+
+    console.log(arrOne2);
+
+</script>
