@@ -27,10 +27,10 @@
 
         data 속성 주의 사항
             인스턴스나 컴포넌트의 data 속성의 값을 직접 바꾸면 화면에 rendering 이 되지 않는 문제 발생
-            즉, this.arr[0]=100; 과 같이 바꾸면 화면의 rendering 되지 않음.
+            즉, this.$data.arr[0]=100; 과 같이 바꾸면 값은 바뀌지만 화면에 rendering 되지 않는 문제가 발생한다.
 
         어떻게 data 속성의 값을 바꾸어야 하나?
-            data 속성의 값을 변경하려면 반드시 재할당으로 처리해야 한다.
+            data 속성의 값을 변경하려면 반드시 "재할당"으로 처리해야 한다.
         
         자바스크립트 타입
             # value 타입에는 string, number, boolen, ...
@@ -59,8 +59,8 @@
                 msg2: 123, /* number */
                 msg3: true, /* boolen */
             }
-            1. Vue.set(this.$data,"msg1", "bbb");
-            2. this.$set(this.$data, "msg1", "ccc");
+            1. this.$set(this.$data, "msg1", "ccc");
+            2. Vue.set(this.$data,"msg1", "bbb");
             3. this.$data["msg1"] = "ddd";
             4. this.$data.msg1 = "ddd";
 
@@ -75,13 +75,14 @@
                 ]
             }
                 
-            1. Vue.set(object, key, value) 방식 
-                Vue.set() 은 Vue prototype 의 static 메서드
-                Vue.set(this.$data.msg4, 0, 100);
+            1. this.$set(object, key, value) 방식.
+               this.$set() 은 Vue 인스턴스 의 인스턴스 메서드
+               this.$set(this.$data.msg4, 0, 300); //배열이거나 오브젝트 인경우에는 this.$data 뒤에 .이름(msg4)를 붙여준다.
+            
 
-            2. this.$set(object, key, value) 방식.
-                this.$set() 은 Vue 인스턴스 의 인스턴스 메서드
-                this.$set(this.$data.msg4, 0, 300);
+            2. Vue.set(object, key, value) 방식 
+               Vue.set() 은 Vue prototype 의 static 메서드
+               Vue.set(this.$data.msg4, 0, 100);
 
             3. spread 연산자 방식 ==> 배열을 새로 만든 뒤 할당. ES6 에서만 가능.
                 var arr_copy=[...this.$data.msg4, 70];
@@ -92,7 +93,7 @@
         실행 순서와 결과 예시
             (1) [100, 2, 3, 4, 5]       <== 방법1을 적용
             (2) [100, 300, 3, 4, 5]     <== 방법2을 적용
-            (3) [100, 300, 3, 4, 5, 70] <== 방법3을 적용
+            (3) [3, 4, 5] <== 방법3을 적용
             (4) [500, 3, 4, 5, 70]      <== 방법4을 적용
 
     </xmp>
@@ -107,7 +108,89 @@
     </div>
 </body>
 
+v-on은 이벤트 핸들러 : methods 에 등록한다.
+v-for는 in 다음에 오는 것(arr)은 data에 넣는다.
+
 </html>
 
 <!-- vue 플러그인 임포트   -->
-
+
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery library */</script>
+<script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            arr: [1, 2, 3, 4, 5],
+        },
+        //template: ``,
+        methods: {
+            //메소드 만들때 무조건 인자는 event로 넣으면 된다.
+            change1: function(event){
+                //tartget은 클릭된 정보들이 그대로 넘어온다.
+                console.log(event.target); //<button v-on:click="change1">방법1로 변경</button>
+                //this.$data.arr[0] = 100;
+                //console.log(this.$data.arr); //배열은 바뀌지만, 화면은 바뀌지 않음.
+                this.$set(this.$data.arr, 0, 100); //update
+                console.log(this.$data.arr);
+            },
+            change2: function(event){
+                console.log(event.target); 
+                this.$set(this.$data.arr, 1, 300); //update
+
+                console.log(this.$data.arr); 
+                console.log(this.$data.arr[0]); //read
+            },
+            //삭제
+            change3: function(event){
+                //배열에서 삭제한다. splice라는 방식만 사용해야한다. 
+                console.log(event.target); 
+
+                this.$data.arr.splice(0, 2); //0번부터 2개를 지운다 : 0번과 1번을 삭제
+                
+                //splice(매개변수 1, 2)
+                console.log(this.$data.arr); 
+                console.log(this.$data.arr[1]); //read
+
+                
+            },
+            //원하는 위치에 추가하는 방법
+            change4: function(event){
+                //배열에서 삭제한다. splice라는 방식만 사용해야한다. 
+                console.log(event.target); 
+                
+                //spread 연산자 
+                var arr = [500,  ...this.$data.arr, 70]; // [500, 3, 4. 5, 70];  ...(spread 연산자 = 점 세개) 
+                //spread 연산자는 배열, 객체만 가능 - ES6에서 새롭게 도입된 연산자.
+                this.$set(this.$data, "arr", arr); 
+                //전체를 다 바꾸는 경우에는 배열의 일부를 바꾸는 것이 아니므로... this.$data.arr(x) -> 이름은 인자로 감.
+
+                console.log(this.$data.arr); 
+                
+            },
+        },
+        components: {
+    
+        }, 
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
+    
+
+</script>
+

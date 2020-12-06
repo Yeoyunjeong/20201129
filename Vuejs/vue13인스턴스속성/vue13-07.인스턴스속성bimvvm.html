@@ -35,3 +35,63 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery library */</script>
+<script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#my",
+        data: {
+            message: "change message at mounted!!!",
+        },
+        //template: ``,
+        methods: {
+            doClick: function(event){
+                console.log(event.target);
+                //this.$data.message = "change message when a button clicked!!!";
+                var time = new Date().toLocaleString();
+                this.$set(this.$data, "message", "change message when a button clicked!!!"+time);
+                console.log(this.$data); 
+            },
+        },
+        components: {
+    
+        }, 
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+        mounted: function() {
+            //페이지가 로딩 됐을때 처음 단 한번..!
+            console.log("mounted");
+            //()=> this를 동일하게 하기 위해서..
+            console.log(this);
+            window.setTimeout(()=>{
+                console.log(this);
+                this.$set(this.$data, "message", "change message after 3 seconds!!!");
+            }, 3000);
+
+            var self = this;  //()=>를 사용하지 않으려면 self기법을 사용한다.
+            window.setTimeout(function(){
+                console.log('aaaa');
+                console.log(this);
+                console.log(self);
+                self.$set(self.$data, "message", "change message after 5 seconds!!!");
+            }, 5000);
+
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
+    
+
+</script>
