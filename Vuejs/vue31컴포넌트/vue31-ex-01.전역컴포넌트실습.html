@@ -77,9 +77,62 @@
     <hr />
 
     <div id="app">
+        <component-header></component-header>
+        
+        <component-content></component-content>
+        
+
+
+        <component-footer></component-footer>
+    </div>
+
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    
+</body>
+
+</html>
+
+<!-- vue 플러그인 임포트   -->
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery library */</script>
+<script>
+    //지역 컴포넌트 만들기
+    //태그명   --> 컴포넌트명
+    // component-header ==> componentHeader
+    // component-content ==> componentContent
+    // component-footer ==> componentFooter
+
+    var  componentHeader = { 
+    /* pdtmc^2w */
+    props: [] ,
+    data: function() {
+        return { }
+    },
+    template: `
         <header>
             Header
         </header>
+    `,
+   
+    };
+    
+    var  componentContent = { 
+    //pdtmc^2w
+    props: [] ,
+    data: function() {
+        return { }
+    },
+    template: `
         <div id="content">
             <p>Content</p>
             <aside>
@@ -89,15 +142,105 @@
                 List
             </div>
         </div>
+    `,
+   
+    };
+    
+
+    
+    var  componentFooter = { 
+        /* pdtmc^2w */
+        props: [] ,
+        data: function() {
+            return { }
+        },
+        template: `
         <footer>
             Footer
         </footer>
-    </div>
-
+        `,
     
-</body>
+    };
 
-</html>
 
-<!-- vue 플러그인 임포트   -->
-
+
+    var aside = { 
+        /* pdtmc^2w */
+        props: [] ,
+        data: function() {
+            return { }
+        },
+        template: `
+    
+        `,
+        methods: {
+    
+        },
+        components: {
+    
+        },
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+    };
+
+    var list = { 
+        /* pdtmc^2w */
+        props: [] ,
+        data: function() {
+            return { }
+        },
+        template: `
+    
+        `,
+        methods: {
+    
+        },
+        components: {
+    
+        },
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+    };
+    
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+    
+        },
+        //template: ``,
+        methods: {
+    
+        },
+        components: {
+            "component-header" : componentHeader,
+            "component-footer" : componentFooter,
+            "component-content" : componentContent,
+
+        }, 
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
+    
+    
+    
+</script>

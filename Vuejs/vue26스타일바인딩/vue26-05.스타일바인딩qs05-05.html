@@ -84,7 +84,14 @@
         v-model 디렉티브를 이용해 양방향 바인딩 되어 있음
 
         도전3. v-bind 과 v-model 지시자를 이용하여 클래스를 동적으로 변경하는 예제를 작성한다.
-    </xmp>
+
+        v-model : input, textarea, select 만 사용 가능. (값을 입력 받을 수 있는 태그)
+        input[value]
+        input[checked]
+        textarea[value]
+        selected[selected]
+    </xmp>,
+
     <hr>
 
     <style>
@@ -115,15 +122,115 @@
     
     <div id="example4">
         <h2> v-bind:style 를 사용한 예제 </h2>
-        <button id="btn1" v-bind:style="[mystyle.set1,mystyle.set2,mystyle.set3]">버튼1</button>
+        <button id="btn1" v-bind:style="[mystyle.set1, mystyle.set2, mystyle.set3]">버튼1</button>
         <p>
             <input type="checkbox" v-model="mystyle.set1" value="true" />set1 디자인<br />
             <input type="checkbox" v-model="mystyle.set2" value="true" />set2 디자인<br />
             <input type="checkbox" v-model="mystyle.set3" value="true" />set3 디자인<br />
         </P>
     </div>
+
+    
 </body>
 
 </html>
 
 <!-- vue 플러그인 임포트   -->
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery library */</script>
+<script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#example1",
+        data: {
+            
+            myColor : {
+                backgroundColor: "aqua",
+                color: "purple",
+            },
+        },
+    });
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#example2",
+        data: {
+            myColor : {
+                backgroundColor: "aqua",
+                color: "purple",
+            },
+            myLayout : {
+                width: "150px",
+                height: "80px",
+                textAlign: "center",
+            },
+        },
+    });
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#example3",
+        data: {
+            mystyle : {
+                
+                set1 : {
+                    backgroundColor: "aqua",
+                    color: "purple",
+                }, 
+                set2 : {
+                    textAlign: "center",
+                    width: "120px",
+                },
+                set3: {
+                    border: "sandybrown dashed 5px",
+                },
+
+            }
+        },
+
+        updated: function() {
+            console.log("updated");
+            console.log(this.$data.mystyle.set1);
+        },
+       
+    });
+
+    var vm4 = new Vue({
+        /* edtmc^2w */
+        el: "#example4",
+        data: {
+            mystyle : {
+                set1 : {
+                    backgroundColor: "aqua",
+                    color: "purple",
+                }, 
+                set2 : {
+                    textAlign: "center",
+                    width: "120px",
+                },
+                set3: {
+                    border: "sandybrown dashed 5px",
+                },
+            }
+        
+        },
+     
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+            console.log(this.$data.mystyle.set1);
+        },
+    });
+    
+
+    
+    
+</script>
