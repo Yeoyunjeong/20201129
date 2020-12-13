@@ -90,8 +90,8 @@
             이미지 위에 마우스를 내리면(mouseout ) ==> ../images/but1.gif , ../images/img_swap_off.png
             이미지 위에 마우스를 올리면(mouseover) ==> ../images/but2.gif , ../images/img_swap_on.png
         </xmp>
-        <img v-bind:src="img_but1" id="but1" />
-        <img v-bind:src="img_swap" id="img-swap" />
+        <img v-bind:src="img_but1" id="but1" v-on:mouseover="butOnOff"  v-on:mouseout="butOnOff" />
+        <img v-bind:src="img_swap" id="img-swap" v-on:mouseover="swapOnOff"  v-on:mouseout="swapOnOff"/>
         <hr />
 
         <xmp>
@@ -100,7 +100,7 @@
             span에 mouseup 이벤트 핸들러를 작성하시오. ==> spanmouseup. background-color를 pink로 설정
             span에 mouseout 이벤트 핸들러를 작성하시오. ==> spanmouseout. background-color를 red로 설정
         </xmp>
-        <span>
+        <span v-bind:style="span_style" v-on:mouseover="span1" v-on:mousedown="span2">
         </span>
         <span>
         </span>
@@ -149,9 +149,10 @@
         el: "#app",
         data: {
             img_image3 : "",
-            img_but1: "../images/but1.gif",
-            img_swap: "../images/but2.gif",
-
+            img_but1: "../images/but2.gif",
+            img_swap: "../images/img_swap_off.png",
+            img_select : "",
+            span_style : "",
         },
         //template: ``,
         methods: {
@@ -164,9 +165,31 @@
                 this.$set(this.$data, "img_image3", imgUrl);
                 
             },
+            butOnOff: function(event){
+                console.log(event.target);
+                if(this.$data.img_but1 === "../images/but1.gif"){
+                    this.$set(this.$data, "img_but1", "../images/but2.gif");
+                }else{
+                    this.$set(this.$data, "img_but1", "../images/but1.gif");
+                }
+            },
+            swapOnOff: function(event){
+                console.log(event.target);
+                if(this.$data.img_swap === "../images/img_swap_off.png"){
+                    this.$set(this.$data, "img_swap", "../images/img_swap_on.png");
+                }else{
+                    this.$set(this.$data, "img_swap", "../images/img_swap_off.png");
+                }
+            },
+            span1: function(event){
+                console.log(event.target);
+                this.$set(this.$data, "span_style", "background-color:yellow");
+            },
+
 
         },
         
     });
+
     
 </script>
