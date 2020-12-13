@@ -67,12 +67,12 @@
         </xmp>
         <ul>
             <li>
-                <a class="image3" href="../images/image3.jpg" v-on:click="puppy">
+                <a class="image3" href="../images/image3.jpg" v-on:click="imageclick">
                     강아지 사진
                 </a>
             </li>
             <li>
-                <a class="image3" href="../images/image4.jpg"  v-on:click="puppy">
+                <a class="image3" href="../images/image4.jpg"  v-on:click="imageclick">
                     고양이 사진
                 </a>
             </li>
@@ -90,8 +90,8 @@
             이미지 위에 마우스를 내리면(mouseout ) ==> ../images/but1.gif , ../images/img_swap_off.png
             이미지 위에 마우스를 올리면(mouseover) ==> ../images/but2.gif , ../images/img_swap_on.png
         </xmp>
-        <img v-bind:src="img_but1" id="but1" v-on:mouseover="butOnOff"  v-on:mouseout="butOnOff" />
-        <img v-bind:src="img_swap" id="img-swap" v-on:mouseover="swapOnOff"  v-on:mouseout="swapOnOff"/>
+        <img v-bind:src="img_but1" id="but1" v-on:mouseover="imageover"  v-on:mouseout="imageout" />
+        <img v-bind:src="img_swap" id="img-swap" v-on:mouseover="imageover"  v-on:mouseout="imageout"/>
         <hr />
 
         <xmp>
@@ -101,13 +101,14 @@
             3. span에 mouseup 이벤트 핸들러를 작성하시오. ==> spanmouseup. background-color를 pink로 설정
            
         </xmp>
-        <span v-bind:style="span_style" v-on:mouseover="span1" v-on:mouseout="span2">
+        <span v-on:mouseover="spanmouseover" v-on:mousedown="spanmousedown" 
+                v-on:mouseout="spanmouseout" v-on:mouseup="spanmouseup">
         </span>
 
-        <span v-bind:style="span_style2" v-on:mouseup="span3">
+        <span>
         </span>
 
-        <span v-bind:style="span_style3" v-on:mousedown="span4">
+        <span  >
         </span>
 
         <hr />
@@ -116,7 +117,7 @@
             select 에 change 이벤트 핸들러를 작성하시오.
             change 이벤트 핸들러: selectchange
         </xmp>
-        <select id="sel" v-on:change="selChage">
+        <select id="sel" v-on:change="selectchange">
             <option value="../images/strawberry.gif">딸기</option>
             <option value="../images/banana.gif">바나나</option>
             <option value="../images/apple.gif" selected>사과</option>
@@ -131,7 +132,7 @@
             focus 이벤트 핸들러 ==> inputfocus. outline: 2px dotted red 설정
             blur 이벤트 핸들러 ==> inputblur. outline: none 설정
         </xmp>
-        <input type="text" id="ID" v-on:focus="inputfocus" v-on:blur="inputblur"/>
+        <input type="text" id="ID" />
         <hr />
 
     </div>
@@ -152,68 +153,78 @@
         /* edtmc^2w */
         el: "#app",
         data: {
-            img_image3 : "",
-            img_but1: "../images/but2.gif",
+            //v-on빼고는 전부 data에 등록한다. 
+            img_image3 : null,
+            img_but1: "../images/but1.gif",
             img_swap: "../images/img_swap_off.png",
             img_select : "",
-
+            
+            /*
             span_style : "",
             span_style2 : "",
             span_style3 : "",
+            */
         },
         //template: ``,
         methods: {
-            puppy: function(event){
+            imageclick: function(event){
                 console.log(event.target);
+
+                //a 태그의 redirect를 막기위해 이벤트 취소 이용.. 
                 event.stopPropagation();
                 event.preventDefault();
+
                 console.log(event.target.href);
                 var imgUrl = event.target.href;
                 this.$set(this.$data, "img_image3", imgUrl);
+                //this.#data.img_image3 = imgUrl;
                 
             },
-            butOnOff: function(event){
+            imageover : function(event){
                 console.log(event.target);
-                if(this.$data.img_but1 === "../images/but1.gif"){
+                if(event.target.id === "but1"){
                     this.$set(this.$data, "img_but1", "../images/but2.gif");
-                }else{
+                }
+                if(event.target.id === "img-swap"){
+                    this.$set(this.$data, "img_swap", "../images/img_swap_on.png");
+                }
+
+            },
+            imageout: function(event){
+                if(event.target.id === "but1"){
                     this.$set(this.$data, "img_but1", "../images/but1.gif");
                 }
-            },
-            swapOnOff: function(event){
-                console.log(event.target);
-                if(this.$data.img_swap === "../images/img_swap_off.png"){
-                    this.$set(this.$data, "img_swap", "../images/img_swap_on.png");
-                }else{
+                if(event.target.id === "img-swap"){
                     this.$set(this.$data, "img_swap", "../images/img_swap_off.png");
                 }
-            },
-            span1: function(event){
-                console.log(event.target);
-                this.$set(this.$data, "span_style", "background-color:yellow");
-            },
-            span2: function(event){
-                this.$set(this.$data, "span_style", "background-color:red");
-            },
-            span3: function(event){
-                this.$set(this.$data, "span_style2", "background-color:pink");
-            },
-            span4: function(event){
-                this.$set(this.$data, "span_style3", "background-color:blue");
-            },
-            selChage : function(event){
-                console.log(event.target);
-                var img = event.target.value;
-                this.$set(this.$data, "img_select", img);
-            },
-
-            inputfocus: function(evnet){
-                event.target.style.outline="2px dotted red";
 
             },
-            inputblur: function(event) {
-                event.target.style.outline="none";
+            spanmouseover: function(event){
+                //event.target.style = "background-color:yellow";
+                event.target.style.backgroundColor = "yellow";
+                
+                
             },
+            spanmouseout: function(event){
+                //event.target.style = "background-color:red";
+                event.target.style.backgroundColor = "red";
+            },
+            spanmouseup: function(event){
+                event.target.style = "background-color:pink";
+                event.target.style.backgroundColor = "pink";
+                
+            },
+            spanmousedown: function(event){
+               // event.target.style = "background-color:yellow";
+               event.target.style.backgroundColor = "blue";
+               
+            },
+            selectchange: function(evnet){
+                var val=event.target.value;
+                this.$set(this.$data, "img_select", val);
+            },
+
+            
 
         },
         

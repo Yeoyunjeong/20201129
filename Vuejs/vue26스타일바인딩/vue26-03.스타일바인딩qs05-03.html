@@ -30,7 +30,7 @@
           1. 명칭은 카멜 표기법 사용. 왜냐하면 자바스립트이기 때문.
             예시) 케밥 표기법 ==> 카멜 표기법
             font-size ==> fontSize
-            backgroundColor ==> backgroundColor
+            background-color ==> backgroundColor
 
           2. 구분자는 세미콜론 대신 콤마 사용. 왜냐하면 자바스크립트 객체기이기 때문.
             {
@@ -136,3 +136,109 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery library */</script>
+<script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#example3",
+        data: {
+            style1: null,
+
+        },
+        //template: ``,
+        methods: {
+            clickArrow: function(event){
+                console.log(event.target);
+
+                var obj = {
+                    height: "50px",
+                    width: "150px",
+                    border: "1px solid black",
+                    textAlign: "center",
+                    lineHeight: "50px",
+                    fontWeight: "800",
+                    color: "red",
+                    backgroundColor: "darkgoldenrod",
+                    padding: "50px",
+                }
+                //this.$data.style1 = obj;
+                this.$set(this.$data, "style1", obj);
+
+            },
+           
+        },
+        components: {
+    
+        }, 
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#elvue",
+        data: {
+            style1: null,
+        },
+        //template: ``,
+        methods: {
+            overEvent: function(event){
+                console.log(event);
+                //배경색은 purple 로 글자색은 yellow
+                var obj = {
+                    backgroundColor : "purple",
+                    color : "yellow",
+                };
+                this.$set(this.$data, "style1", obj);
+            }, 
+            outEvent : function(event){
+                console.log(event);
+                //배경색을 aqua 로 글자색은 black
+                var obj = {
+                    backgroundColor : "aqua",
+                    color : "black",
+                };
+                this.$set(this.$data, "style1", obj);
+                
+            },
+        },
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
+    
+
+    var overEvent = function(e){
+        //console.log(e);
+        e.style.backgroundColor = "purple";
+        e.style.color = "yellow";
+    };
+
+    var outEvent = function(e){
+       // console.log(e);
+        e.style.backgroundColor = "aqua";
+        e.style.color = "black";
+    }
+
+    
+</script>
