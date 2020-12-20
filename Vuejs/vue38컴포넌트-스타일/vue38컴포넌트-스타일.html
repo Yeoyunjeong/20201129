@@ -28,12 +28,12 @@
         2. 범위 CSS(scoped CSS)
             <style scoped></style>
             느리다
-            하위컴포넌트에 적용된다.
+            자신컴포넌트 + 하위(자식)컴포넌트에 적용된다.
         3. 모듈 CSS(module CSS)
             <style module></style>
             $style 로 사용
             v-bind:class="$style.hand"
-            v-bind:class="[$style.hand,$style.border]"
+            v-bind:class="[$style.hand, $style.border]"
 
 
 

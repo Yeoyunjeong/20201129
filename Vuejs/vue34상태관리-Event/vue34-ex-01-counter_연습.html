@@ -108,7 +108,9 @@
     var componentChild = { 
         /* pdtmc^2w */
         props: ['num'] ,
-
+        data: function() {
+            return { }
+        },
         template: `
         <div class="component-child">
               Child counter : {{ num }} <br>
@@ -118,15 +120,9 @@
         `,
         methods: {
           addCounter: function(event){
-            console.log(event.target);
-            //이벤트 발생시키기
-            this.$emit("add-counter", event, +1);
 
           },
           subCounter: function(event){
-            console.log(event.target);
-            //이벤트 발생시키기
-            this.$emit("sub-counter", event, -1);
 
           },
         },
@@ -150,21 +146,15 @@
         },
         //template: ``,
         methods: {
-          addCounter : function(event, param){
-            //this.$data.counter = this.$data.counter + param;
-
-            //this.$set(this.$data, "counter", this.$data.counter + 1);
-            this.$set(this.$data, "counter", this.$data.counter+param);
+          addCounter : function(event, su){
+            this.$set(this.$data, "counter", this.$data.counter + 1);
           },
-          subCounter : function(event, param){
-            //this.$data.counter = this.$data.counter + param;
-            //this.$set(this.$data, "counter", this.$data.counter - 1);
-            this.$set(this.$data, "counter", this.$data.counter+param);
+          subCounter : function(event, su){
+            this.$set(this.$data, "counter", this.$data.counter - 1);
           }
 
         },
         components: {
-          //인스턴스가 사용할 컴포넌트 등록
           "component-child": componentChild,
         }, 
         computed: {

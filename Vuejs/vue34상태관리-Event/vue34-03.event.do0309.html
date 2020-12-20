@@ -53,5 +53,81 @@
 </body>
 </html>
 
+
 <!-- vue 플러그인 임포트   -->
-
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery library */</script>
+<script>
+    
+    //1.지역 컴포넌트 만들기.
+
+    var childComponent = { 
+        /* pdtmc^2w */
+        props: [] ,
+        data: function() {
+            return { }
+        },
+        template: `
+        <div>
+            <button v-on:click="showLog">show</button>
+        </div>
+        `,
+        methods: {
+            showLog: function(event){
+                console.log(event.target);
+                //부모에게 값을 던진다.
+                //this.$emit('이벤트명', […넘길값1, 넘길값2... ])
+                this.$emit('show-log', 'abc', 123);
+            },
+        },
+        components: {
+    
+        },
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+    };
+    
+
+    //인스턴스 만들기.
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            mesg: null,
+        },
+        //template: ``,
+        methods: {
+            printText :function(param1, param2){
+                //debugger;
+                console.log(param1);
+                console.log(param2);
+                console.log(arguments);// ES5에서 모든 매개변수를 받는 유사 배열 객체
+            }
+        },
+        components: {
+            "child-component": childComponent,
+        }, 
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
+    
+</script>
+
