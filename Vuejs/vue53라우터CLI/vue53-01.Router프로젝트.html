@@ -58,7 +58,7 @@
         # Vue-CLI 프로젝트 생성 및 설정 작업
         ##################################
             step 01. npm install -g @vue/cli     # Vue-CLI 전역 설치
-            step 02. vue -V                      # Vue-CLI 버전 확인
+            step 02. vue -V                      # Vue-CLI 버전 확인 vue/cli 4.5.9
             step 03. vue create  routerprj01     # Vue 프로젝트 생성. package.json 생성. 라이브러리 다운로드
                 Vue CLI v4.4.1
                 ? Please pick a preset: Manually select features
@@ -70,20 +70,22 @@
                 ? Save this as a preset for future projects? No
 
             step 04. cd routerprj01              # 폴더 이동
-            step 07. npm run serve             # 프로젝트 실행
+            step 05. package.json 파일이 있는지 확인 
+                    $ ls  로 확인
+            step 06. npm run serve             # 프로젝트 실행 (package.json이 있다면)
         
-            step 05. vue add router              # Vue-Router 플러그인 추가
-            step 06. npm install vuex --save     # Veux 추가
+            step 07. vue add router              # Vue-Router 플러그인 추가
+            step 08. npm install vuex --save     # Veux 추가
 
-            step 08. package.json 수정   # 프로젝트 실행시 브라우저 오픈 설정
+            step 09. package.json 수정   # 프로젝트 실행시 브라우저 오픈 설정
                 "scripts": {
                     "serve": "vue-cli-service serve --open --port 4000", /* --open: 브라우저로 열기, --port 4000 : 포트 지정 */
                     "build": "vue-cli-service build",
                     "lint": "vue-cli-service lint"
                 },
-            step 09. npm run serve               # 프로젝트 실행
-            step 10. npm run lint                # 코드 표준화 검사
-            step 11. npm run build              # 웹팩 빌드. /dist/ 에 파일 만들어짐.
+            step 10. npm run serve               # 프로젝트 실행
+            step 11. npm run lint                # 코드 표준화 검사
+            step 12. npm run build              # 웹팩 빌드. /dist/ 에 파일 만들어짐.
 
 
         프로젝트 폴더 구조
