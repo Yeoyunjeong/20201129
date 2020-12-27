@@ -41,4 +41,36 @@
 
 </html>
 
-
+<!-- react 플러그인 include   -->
+<!-- 주의: 사이트를 배포할 때는 "development.js"를 "production.min.js"로 대체하세요. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로 변환 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React} from "react"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from "react-dom"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"> /* import {Redux} from "redux"; */ </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">/* import {ReactRedux} from "react-redux"; */</script>
+<script type="text/babel">
+    const cities = ["서울", "부산", "제주"];
+    console.log(cities[0], cities[1], cities[2]);
+    console.log( ... cities );
+
+    const east = ["U", "K", "T"];
+    const west = ["N", "C", "G"];
+
+    //east와 west를 합쳐서 하나의 배열을 만드시오
+    const contact = [].concat(east).concat(west);
+    console.log(contact);
+    const countries = [ ... east, ...west ];
+    console.log(countries);
+
+    //rest연산자 vs spread 연산자
+    let lakes = ["경포호", "화진포", "송지호", "청초호"];
+    let [first, ...rest] = lakes; // ...rest : rest 연산자
+    console.log( first ); // "경포호"
+    console.log( rest ) // ["화진포", "송지호", "청초호"]
+
+    let [cityfirst, ...cityrest] = [ ... east, ...west ]; //...rest : rest 연산자 , ...east, ...west : spread 연산자
+    console.log(cityfirst);
+    console.log(cityrest);
+
+</script>
+

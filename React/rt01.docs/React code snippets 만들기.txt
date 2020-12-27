@@ -89,7 +89,7 @@ https://www.youtube.com/watch?v=t4ESp_po6Wc
         "description": "React Functional Component"
     },
     "React script import": {
-        "prefix": "reactscript",
+        "prefix": "reactplugin",
         "body": [
             "",
             "<!-- react 플러그인 include   -->",

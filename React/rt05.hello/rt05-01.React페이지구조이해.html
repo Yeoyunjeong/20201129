@@ -37,6 +37,9 @@
 
                 // this 바인딩
                 this.handler = this.handler.bind(this);
+
+                // ref 생성
+                this.inputref = React.createRef();
             }
             componentDidMount() {
                 // 마운트 완료 후에  : 한번만
@@ -54,12 +57,15 @@
                 // 이벤트 핸들러를 화살표 함수로 만들면 this를 bind() 생략해도 된다
             }
             render() {
+
+                //화면처리
                 return (
                     <div onClick={this.handler}>{this.props.name}, {this.state.mesg}</div>
                 );
             }
         };
-        // Component 를 화면에 붙이는 작업.
+
+        // Component 를 화면에 붙이는 작업. 스크립트 방식으로는 무조건 해야함.
         ReactDOM.render(
             <Comp name="Batman"></Comp>, document.getElementById("app")
         );
@@ -97,7 +103,70 @@
 
 </html>
 
-<!-- react 플러그인 include   -->
-<!-- 주의: 사이트를 배포할 때는 'development.js'를 'production.min.js'로 대체하세요. -->
 
+<!-- react 플러그인 include   -->
+<!-- 주의: 사이트를 배포할 때는 "development.js"를 "production.min.js"로 대체하세요. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로 변환 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React} from "react"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from "react-dom"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"> /* import {Redux} from "redux"; */ </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">/* import {ReactRedux} from "react-redux"; */</script>
+<script type="text/babel">
+    //import React from "react";
+    //import ReactDOM from "react-dom"
+    
+    console.log(React);
+    console.log(ReactDOM);
+    
+    class Comp extends React.Component {
+    
+        state = {
+            // 상태값(변수)을 정의한다.
+            mesg: "Hi ~~~~ ",
+    
+        }
+        style = {
+            // 컴포넌트 내부에서 사용할 인라인 스타일을 정의한다.
+    
+        }
+        func = {
+            // func 정의된 메서드는 반드시 constructor에서 this bind() 해야 한다.
+            // 자식 컴포넌트에게 부모 메서드를 넘기기 위해서 - spread 연산자를 통해서. state up.
+            //왜 자식에게 부모 메서드를 넘기는가? 부모의 상태 값 변경하기 위해서. 
+    
+        }
+        constructor(props) {
+            super(props);
+            // this 바인딩. 
+            // func 에 정의한 매서드는 반드시 this bind 처리해야 한다.
+            
+            // ref 만들기
+            
+        }
+        componentDidMount() {
+            // 마운트 완료 후에  : 페이지 load 될 때 한번
+        }
+        componentDidUpdate(prevProps, prevState) {
+            // 업데이트 완료 후에 : 여러번, state 가 변경될 때마다
+        }
+        componentWillUnmount() {
+            // 언마운트 완료 후에 : 페이지 unload 될 때 한번
+        }
+        handler = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+            console.log(event.target);//
+        }
+        render() {
+            return (
+                <div onClick={this.handler}>
+                    {this.props.name}, {this.state.mesg}
+                </div>
+            );
+        }
+    }
+    
+    //export default Comp;
+    //화면에 컴포넌트 붙이기 
+    ReactDOM.render( <Comp name={"Hello"}></Comp>, document.getElementById("app") );
+</script>
 

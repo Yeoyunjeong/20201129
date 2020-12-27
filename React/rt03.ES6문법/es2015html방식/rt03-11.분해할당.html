@@ -18,4 +18,44 @@
 </body>
 </html>
 
-
+<!-- react 플러그인 include   -->
+<!-- 주의: 사이트를 배포할 때는 "development.js"를 "production.min.js"로 대체하세요. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로 변환 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React} from "react"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from "react-dom"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"> /* import {Redux} from "redux"; */ </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">/* import {ReactRedux} from "react-redux"; */</script>
+<script type="text/babel">
+    var points = [20, 30, 40];
+    var x1 = points[0];
+    var y1 = points[1];
+    var z1 = points[2];
+
+    console.log(x1, y1, z1);
+    // [  ] = [  ]
+    const [x2, y2, z2] = points; // var points = [20, 30, 40];
+
+    const car = {
+        type:"t",
+        color: "S",
+        model: 2017,
+    }
+    // ES5
+    const type1 = car.type;
+    const color1 = car.color;
+    const model1 = car.model;
+    console.log(type1, color1, model1);
+    
+    // ES6
+    const {type2, color2, model2, gear2} = car;
+    console.log(type2, color2, model2, gear2);
+
+    let p1 = { name : "홍길동", age: 20, gender: "M"};
+    let { name : n, age: a, gender} = p1;
+    console.log(n, a, gender);
+
+
+
+    
+</script>
+
