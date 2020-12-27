@@ -54,7 +54,7 @@
 class UserGreeting extends React.Component {
     render() {
         return (
-            <h1>Welcome back!</h1>
+            <h1>Welcome back! isLoggedIn : {this.props.isLoggedIn+""}</h1>
         );
     }
 }
@@ -62,7 +62,7 @@ class UserGreeting extends React.Component {
 class GuestGreeting extends React.Component {
     render() {
         return (
-            <h1>Please sign up.</h1>
+            <h1>Please sign up. isLoggedIn : {this.props.isLoggedIn+""}</h1>
         );
     }
 }
@@ -71,15 +71,15 @@ class Greeting extends React.Component {
     render() {
             const isLoggedIn = this.props.isLoggedIn;
             if (isLoggedIn) {
-                return <UserGreeting />;
+                return <UserGreeting  {...this.props}/>;
             }else{
-                return <GuestGreeting />;
+                return <GuestGreeting {...this.props}/>;
             }
     }
 }
 
 ReactDOM.render(
-    <Greeting isLoggedIn={true}></Greeting>, document.getElementById("app")
+    <Greeting isLoggedIn={false}></Greeting>, document.getElementById("app")
 );
 
 </script>
