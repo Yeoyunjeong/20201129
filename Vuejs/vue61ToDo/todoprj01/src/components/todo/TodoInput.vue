@@ -120,3 +120,36 @@ input:focus {
         </div>
     </div>
 </template>
+
+<script>
+    export default { 
+        /* pdtmc^2w */
+        props: [''] ,
+        data: function() {
+            return { 
+                newTodoItem: null,
+                showModal: false,
+            }
+        },
+        template: `
+    
+        `,
+        methods: {
+            addTodo: function(){
+                debugger;
+                this.$emit("add-todo", this.$data.newTodoItem)
+
+                this.$set(this.$data, "newTodoItem", "")
+            }
+        },
+        components: {
+    
+    },
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+    }
+</script>

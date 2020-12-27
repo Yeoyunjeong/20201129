@@ -66,14 +66,17 @@ export default {
         `,
         methods: {
             doneToggle: function(id, index){
+                //debugger;
                 //this.$emit("doneToggle", id, index);
                 this.$data.todoItems[index].done = !this.$data.todoItems[index].done;
             },
             removeTodo: function(id, index){
+                //debugger;
                 //this.$emit("removeTodo", id, index);
                 this.$data.todoItems.splice(index, 1);
             },
             clearAll: function(){
+                //debugger;
                 this.$data.todoItems = []
             },
             

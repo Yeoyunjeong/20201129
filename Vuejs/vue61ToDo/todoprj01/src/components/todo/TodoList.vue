@@ -55,7 +55,7 @@ li.checked {
                 <span
                     class="removeBtn"
                     type="button"
-                    v-on:click="removeTodo(todoItem.id, index)"
+                    v-on:click.stop="removeTodo(todoItem.id, index)"
                 >
                     <i class="far fa-trash-alt" aria-hidden="true"></i>
                 </span>
@@ -63,4 +63,42 @@ li.checked {
         </transition-group>
     </section>
 </template>
+
+<script>
+    export default { 
+        /* pdtmc^2w */
+        props: ['todoItems'] ,
+        data: function() {
+            return { }
+        },
+        //template: ` `,
+        methods: {
+            checked: function(done){
+                if(done){
+                    return "checked";
+                }else{
+                    return null;
+                }
+            },
+            doneToggle: function(id, index){
+               // debugger;
+                this.$emit("doneToggle", id, index);
+            },
+            removeTodo: function(id, index){
+                //debugger;
+                this.$emit("removeTodo", id, index);
+
+            },
+        },
+        components: {
+    
+    },
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+    }
+</script>
 
