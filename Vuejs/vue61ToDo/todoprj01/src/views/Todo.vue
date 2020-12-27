@@ -103,9 +103,9 @@ export default {
         },
         components: {
             "TodoHeader": TodoHeader,
-            "TodoFooter": TodoFooter,
             "TodoInput": TodoInput,
             "TodoList": TodoList,
+            "TodoFooter": TodoFooter,
         },
         computed: {
     

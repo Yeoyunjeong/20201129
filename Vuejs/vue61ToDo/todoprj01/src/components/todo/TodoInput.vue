@@ -136,8 +136,8 @@ input:focus {
         `,
         methods: {
             addTodo: function(){
-                debugger;
-                this.$emit("add-todo", this.$data.newTodoItem)
+                //debugger;
+                this.$emit("addTodo", this.$data.newTodoItem)
 
                 this.$set(this.$data, "newTodoItem", "")
             }

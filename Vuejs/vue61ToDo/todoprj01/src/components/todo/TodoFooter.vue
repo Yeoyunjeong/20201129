@@ -19,21 +19,13 @@
     </div>
 </template>
 
-<style scoped>
-
-</style>
-
-<template>
-
-</template>
-
 <script>
     export default { 
         props: [], 
         methods: {
         clearAll:function(event){
             console.log(event.target);
-            this.$emit("clear-all");
+            this.$emit("clearAll");
         }
       },
     }
