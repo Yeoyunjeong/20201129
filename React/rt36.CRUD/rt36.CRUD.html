@@ -408,7 +408,7 @@ Latest commit 6bd7e4f 43 seconds ago
                         </td>
                     </tr>
                     */
-                    <CrudListItem index={index} item={item} {...this.props}></CrudListItem>
+                    <CrudListItem key={index} index={index} item={item} {...this.props}></CrudListItem>
                     
                 );
             })
@@ -439,7 +439,7 @@ Latest commit 6bd7e4f 43 seconds ago
         static propsTypes = {  /* props의 프로퍼티 타입 설정 */ } 
         state = {
             // 상태값(변수)을 정의한다.
-    
+            isEditMode : false,
         }
         style = {
             // 컴포넌트 내부에서 사용할 인라인 스타일을 정의한다.
@@ -454,7 +454,8 @@ Latest commit 6bd7e4f 43 seconds ago
             // this 바인딩 // func 에 정의한 매서드는 반드시 this bind 처리해야 한다.
             
             // ref 만들기
-            
+            this.refName = React.createRef();
+            this.refPower = React.createRef();
         }
         componentDidMount() {
             // 마운트 완료 후에  : 페이지 load 될 때 한번
@@ -468,32 +469,100 @@ Latest commit 6bd7e4f 43 seconds ago
         }
         doDel = (event)=>{
             //state 변경 . state는 부모에 있다 -> 부모 메서드 호출
-            this.props.doDel();
+            //부모 콜백 메서드 호출
+            const item = this.props.item;
+            const index = this.props.index;
+            this.props.doDel(index, item);
+
         }
         doUp = (event)=>{
+            const item = this.props.item;
+            const index = this.props.index;
+            this.props.doUp(index, item);
 
         }
         doDown = (event)=>{
-
+            const item = this.props.item;
+            const index = this.props.index;
+            this.props.doDown(index, item);
         }
         doEdit = (event)=>{
+            
+            //this.state.isEditMode = !this.state.isEditMode;
+            this.setState({
+                ...this.state,
+                isEditMode: !this.state.isEditMode
+            })
 
+        }
+        doSave = (event) => {
+            //debugger;
+
+            this.setState({
+                ...this.state,
+                isEditMode : !this.state.isEditMode
+            });
+
+            //newitem 만들기
+            let newitem = this.props.item;
+            newitem.name = this.refName.current.value;
+            newitem.power = Number(this.refPower.current.value);
+
+            //부모 콜백 메서드 호출
+            this.props.doSave(newitem);
         }
         render() {
             const {index, item} = this.props; //분해할당
-            return (
-                <tr className="" key={index}>
-                        <td>{item.id}</td>
-                        <td>{item.name}</td>
-                        <td>{item.power}</td>
-                        <td>
-                            <button onClick={this.doDel}>Del</button>
-                            <button onClick={this.doUp}>Power Up</button>
-                            <button onClick={this.doDown}>Power Down</button>
-                            <button onClick={this.doEdit}>Edit</button>
-                        </td>
-                    </tr>
+
+            const formView = (
+                <tr key={index} className="">
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>{item.power}</td>
+                    <td>
+                        <button onClick={this.doDel}>Del</button>
+                        <button onClick={this.doUp}>Power Up</button>
+                        <button onClick={this.doDown}>Power Down</button>
+                        <button onClick={this.doEdit}>Edit</button>
+                    </td>
+                </tr>
             );
+            const formEdit =(
+
+                <tr key={index} className="">
+                    <td>{item.id}</td>
+                    <td>
+                        <input
+                            type="text"
+                            name="name"
+                            ref={this.refName}
+                            defaultValue={item.name}
+                        />
+                    </td>
+                    <td>
+                        <input
+                            type="text"
+                            name="power"
+                            ref={this.refPower }
+                            defaultValue={item.power}
+                        />
+                    </td>
+                    <td>
+                        <button onClick={this.doUp}>Power Up</button>
+                        <button onClick={this.doDown}>Power Down</button>
+                        <button onClick={this.doSave}>Save</button>
+                    </td>
+                </tr>
+
+                
+
+            );
+            if ( this.state.isEditMode ){
+                return formEdit;
+            }else{
+                return formView;
+            }
+            
         }
     }
     
@@ -546,12 +615,75 @@ Latest commit 6bd7e4f 43 seconds ago
                     list: newlist,
                 })
             },
+            doDel (index, item){
+                const r = window.confirm("정말로 삭제하시겠습니까?");
+                if(!r) return false;
+
+                //배열에서 삭제
+                const id = item.id;
+                //삭제할 item을 제외한 배열 만들기
+                const newlist = this.state.list.filter((item, index)=>{
+                    return item.id !== id;
+                })
+                this.setState({
+                    ...this.sate,
+                    list : newlist
+                })
+            },
+            doUp (index, item){
+               const id = item.id;
+               
+               const newlist = this.state.list.filter((item, index)=>{
+                   if(item.id === id){
+                       item.power = Number(item.power) + 100;
+                   }
+                    return item;
+                })
+                this.setState({
+                    ...this.sate,
+                    list : newlist
+                })
+
+            },
+            doDown (index, item){
+                const id = item.id;
+               
+               const newlist = this.state.list.filter((item, index)=>{
+                   if(item.id === id){
+                       item.power = Number(item.power) - 50;
+                   }
+                    return item;
+                })
+                this.setState({
+                    ...this.sate,
+                    list : newlist
+                })
+            },
+            doSave(newitem){
+                const id = newitem.id;
+                const newlist = this.state.list.filter((item, index)=>{
+                   if(item.id === id){
+                       return newitem;
+                   }else{
+                        return item;
+                   }
+                })
+                this.setState({
+                    ...this.sate,
+                    list : newlist
+                })
+            }
     
         }
         constructor(props) {
             super(props);
             // this 바인딩
             this.func.doIns = this.func.doIns.bind(this);
+
+            this.func.doDel = this.func.doDel.bind(this);
+            this.func.doUp = this.func.doUp.bind(this);
+            this.func.doDown = this.func.doDown.bind(this);
+            this.func.doSave = this.func.doSave.bind(this);
             
             // ref 만들기
             
