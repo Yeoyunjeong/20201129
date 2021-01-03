@@ -71,7 +71,7 @@
     <hr>
 
     <div id="app" class="component-parent">
-        Parent counter : {this.state.counter} <br>
+        Parent counter : {this.state.counter} <br />
         <button name="parent" onClick={this.addCounter}>+</button>
         <button name="parent" onClick={this.subCounter}>-</button>
         <p></p>
@@ -90,6 +90,108 @@
 
 </html>
 
+
 <!-- react 플러그인 include   -->
 <!-- 주의: 사이트를 배포할 때는 "development.js"를 "production.min.js"로 대체하세요. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로 변환 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React} from "react"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from "react-dom"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"> /* import {Redux} from "redux"; */ </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">/* import {ReactRedux} from "react-redux"; */</script>
+<script type="text/babel">
+  class ComponentChild extends React.Component {
+  
+      constructor(props) {
+          super(props);
+          // this 바인딩 // func 에 정의한 매서드는 반드시 this bind 처리해야 한다.
+          
+          // ref 만들기
+          
+      }
+      
+      addCounter = (event)=>{
+          //부모 state 변경
+          this.props.addCounter(1);
+      }
+      subCounter = (event)=>{
+          //부모 state 변경
+          this.props.subCounter(1);
+      }
+      render() {
+          return (
+            <div className="component-child">
+                Child counter : {this.props.counter} <br />
+                <button name="child" onClick={this.addCounter}>+</button>
+                <button name="child" onClick={this.subCounter}>-</button>
+            </div>
+          );
+      }
+  }
+  
+  class ComponentParent extends React.Component {
+  
+  state = {
+      // 상태값(변수)을 정의한다.
+      counter : 0,
+  }
+  
+  func = {
+    addCounter(param) {
+                //this.state.counter = this.state.counter + param;
+                this.setState({
+                    ...this.state,
+                    counter: this.state.counter + param
+                });
+            },
+            subCounter(param) {
+                //this.state.counter = this.state.counter - param;
+                this.setState({
+                    ...this.state,
+                    counter: this.state.counter - param
+                });
+            }
 
+  }
+  constructor(props) {
+      super(props);
+      // this 바인딩 // func 에 정의한 매서드는 반드시 this bind 처리해야 한다.
+      this.func.addCounter = this.func.addCounter.bind(this);
+      this.func.subCounter = this.func.subCounter.bind(this);
+
+      // ref 만들기
+      
+  }
+  
+  addCounter = (event)=>{
+      // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+      console.log(event.target);//
+      this.func.addCounter(1);
+  }
+  subCounter = (event)=>{
+      // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+      console.log(event.target);
+      this.func.subCounter(1);
+  }
+  render() {
+    return (
+      <div>
+          Parent counter : {this.state.counter} <br />
+          <button name="parent" onClick={this.addCounter}>+</button>
+          <button name="parent" onClick={this.subCounter}>-</button>
+          <p></p>
+            {/* Child 컴포넌트를 등록하고 
+            counter 데이터 속성과 콜백 메서드가 props로 전달되도록 설정한다. 
+            */}
+          <ComponentChild {...this.state} {...this.func}>
+          </ComponentChild>
+      </div>
+      );
+  }
+}
+
+  //export default ComponentChild;
+  ReactDOM.render(
+    <ComponentParent></ComponentParent>, 
+    document.getElementById("app")
+  )
+</script>

@@ -174,15 +174,14 @@
         render() {
             return (
                 <div class="label">
-                    #ff6663
+                    {this.props.color}
                 </div>
             );
         }
     }
 
     class Square extends React.Component {
-    
-      
+
         style = {
             styleSquare : {
                 height: "150px",
@@ -209,21 +208,39 @@
     
         
         style = {
-            // 컴포넌트 내부에서 사용할 인라인 스타일을 정의한다.
-    
+            styleCard : {
+                display: "inline-block",
+                height: "200px",
+                width: "150px",
+                padding: "0",
+                margin: "10px",
+                backgroundColor: "#ffffff",
+                // webkitFilter: "drop-shadow(0px 0px 5px #666666)",
+                filter: "drop-shadow(0px 0px 5px #666666)",
+            }
         }
         
         render() {
             return (
-                <div>
-                    ?
+                <div style={this.style.styleCard}>
+                    <Square {...this.props} ></Square>
+                    <Label {...this.props} ></Label>
                 </div>
             );
         }
     }
-    
-    //export default Card;
+   
+    //export default CardComponet;
+    ReactDOM.render(
+        <div>
+            <Card color={"#ff6663"}></Card>
+            <Card color={"#ffa737"}></Card>
+        </div>
+        , 
+    document.getElementById("app"))
 
+    /*
+    //export default Card;
      //export default CardComponet;
      ReactDOM.render(
         <Label></Label>
@@ -234,6 +251,6 @@
         <Card></Card>
         , 
     document.getElementById("app"))
-
+    */
     
 </script>

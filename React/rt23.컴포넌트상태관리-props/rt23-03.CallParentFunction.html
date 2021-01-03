@@ -47,6 +47,7 @@
 
     <div id="app">
         <div id="parent">
+            I am a parent
             <div id="child">
                 4
                 <br/>
@@ -61,8 +62,124 @@
 </body>
 </html>
 
+
 <!-- react 플러그인 include   -->
 <!-- 주의: 사이트를 배포할 때는 "development.js"를 "production.min.js"로 대체하세요. -->
-
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로 변환 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React} from "react"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from "react-dom"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"> /* import {Redux} from "redux"; */ </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">/* import {ReactRedux} from "react-redux"; */</script>
+<script type="text/babel">
+    class Child extends React.Component {
+    
+        static defaultProps = {  /*  props의 디폴트 값 설정 */  } 
+        static propsTypes = {  /* props의 프로퍼티 타입 설정 */ } 
+        state = {
+            // 상태값(변수)을 정의한다.
+            
+        }
+        style = {
+            // 컴포넌트 내부에서 사용할 인라인 스타일을 정의한다.
+    
+        }
+        func = {
+            // func에 정의된 메서드는 반드시 constructor에서 this bind() 해야 한다.
+    
+        }
+        constructor(props) {
+            super(props);
+            // this 바인딩 // func 에 정의한 매서드는 반드시 this bind 처리해야 한다.
+            
+            // ref 만들기
+            
+        }
+        componentDidMount() {
+            // 마운트 완료 후에  : 페이지 load 될 때 한번
+        }
+        componentDidUpdate(prevProps, prevState) {
+            // 업데이트 완료 후에 : 여러번, state 가 변경될 때마다
+        }
+        componentWillUnmount() {
+            // 언마운트 완료 후에 : 페이지 unload 될 때 한번
+            //사용되는 경우 : 이벤트 핸들러 해제, redux 구독 해제
+        }
+        doParentToggleFromChild = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+            console.log(event.target);//
+            //state up ; 부모 컴포넌트의 메서드 호출
+            this.props.doParentToggleFromChild( 1 );
+        }
+        render() {
+            return (
+                <div id="child">
+                    {this.props.counter}
+                    <br/>
+                    I am a child
+                    <br/>
+                    <button onClick={this.doParentToggleFromChild}>
+                        toggle
+                    </button>
+                </div>
+            );
+        }
+    }
+ 
+   
+   class Parent extends React.Component {
+   
+       static defaultProps = {  /*  props의 디폴트 값 설정 */  } 
+       static propsTypes = {  /* props의 프로퍼티 타입 설정 */ } 
+       state = {
+           // 상태값(변수)을 정의한다.
+           counter : 0,
+       }
+       style = {
+           // 컴포넌트 내부에서 사용할 인라인 스타일을 정의한다.
+   
+       }
+       func = {
+           // func에 정의된 메서드는 반드시 constructor에서 this bind() 해야 한다.
+           doParentToggleFromChild(param){
+               //state 변경
+               this.setState({
+                   ...this.state,
+                   counter : this.state.counter + param, 
+               })
+           }
+       }
+       constructor(props) {
+           super(props);
+           // this 바인딩 // func 에 정의한 매서드는 반드시 this bind 처리해야 한다.
+           this.func.doParentToggleFromChild = this.func.doParentToggleFromChild.bind(this);
+           //bind처리를 빼놓으면 안된다... bind가 뒤에온다,,,
+           // ref 만들기
+            
+       }
+       componentDidMount() {
+           // 마운트 완료 후에  : 페이지 load 될 때 한번
+       }
+       componentDidUpdate(prevProps, prevState) {
+           // 업데이트 완료 후에 : 여러번, state 가 변경될 때마다
+       }
+       componentWillUnmount() {
+           // 언마운트 완료 후에 : 페이지 unload 될 때 한번
+           //사용되는 경우 : 이벤트 핸들러 해제, redux 구독 해제
+       }
+       handler = (event)=>{
+           // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+           console.log(event.target);//
+       }
+       render() {
+           return (
+                <div id="parent">
+                    I am a parent
+                   <Child {...this.props} {...this.state} {...this.func}></Child>
+               </div>
+           );
+       }
+   }
+   
+   //export default Parent;
+   ReactDOM.render(<Parent></Parent>, document.getElementById("app"));
+</script>
