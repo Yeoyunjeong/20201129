@@ -49,6 +49,87 @@
 
 </html>
 
+
 <!-- react 플러그인 include   -->
 <!-- 주의: 사이트를 배포할 때는 "development.js"를 "production.min.js"로 대체하세요. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로 변환 */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React} from "react"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from "react-dom"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"> /* import {Redux} from "redux"; */ </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">/* import {ReactRedux} from "react-redux"; */</script>
+<script type="text/babel">
+//import React from "react";
+//import ReactDOM from "react-dom"
 
+
+class Clock extends React.Component {
+
+    static defaultProps = {  /*  props의 디폴트 값 설정 */  } 
+    static propsTypes = {  /* props의 프로퍼티 타입 설정 */ } 
+    state = {
+        // 상태값(변수)을 정의한다.
+        timer: null,
+        hms: "",
+    }
+    style = {
+        // 컴포넌트 내부에서 사용할 인라인 스타일을 정의한다.
+        style1: {
+            fontSize: "50pt",
+        }
+    }
+    func = {
+        // func에 정의된 메서드는 반드시 constructor에서 this bind() 해야 한다.
+
+    }
+    constructor(props) {
+        super(props);
+        // this 바인딩 // func 에 정의한 매서드는 반드시 this bind 처리해야 한다.
+        
+        // ref 만들기
+        
+    }
+    componentDidMount() {
+        this.state.timer = window.setInterval( 
+            ()=>{
+                const d = new Date();
+                const h = this.addZero(d.getHours());
+                const m = this.addZero(d.getMinutes());
+                const s = this.addZero(d.getSeconds());
+
+                // this.state.counter = this.state.counter + 1
+                this.setState( {
+                    ...this.state, //필수
+                    "hms" : `${h}:${m}:${s}`,
+                });
+            },
+            1000 /*1초*/
+        );
+    }
+    componentDidUpdate(prevProps, prevState) {
+        // 업데이트 완료 후에 : 여러번, state 가 변경될 때마다
+    }
+    componentWillUnmount() {
+        // 언마운트 완료 후에 : 페이지 unload 될 때 한번
+        //사용되는 경우 : 이벤트 핸들러 해제, redux 구독 해제
+    }
+    handler = (event)=>{
+        // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+        console.log(event.target);//
+    }
+    addZero(val){
+        var href = "00"+val;
+        var ext = href.substr(-2);
+        return ext;
+    }
+    render() {
+        return (
+            <div style={this.style.style1}>
+                {this.state.hms}
+            </div>
+        );
+    }
+}
+
+//export default Clock;
+ReactDOM.render(<Clock></Clock>, document.getElementById("app"));
+</script>

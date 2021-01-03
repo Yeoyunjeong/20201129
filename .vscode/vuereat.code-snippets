@@ -203,6 +203,7 @@
             "    }",
             "    componentWillUnmount() {",
             "        // 언마운트 완료 후에 : 페이지 unload 될 때 한번",
+            "        //사용되는 경우 : 이벤트 핸들러 해제, redux 구독 해제",
             "    }",
             "    handler = (event)=>{",
             "        // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다",
